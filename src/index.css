@@ -1,0 +1,265 @@
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ================================================================
+   NEWSWAVE — SIGNAL BROADCAST SYSTEM
+   Fixed: font sizes, light/dark contrast
+================================================================ */
+
+/* ── DARK MODE (default) ── */
+:root {
+  --ink:     #050c08;
+  --surface: #0a120d;
+  --card:    #0f1a12;
+  --sig:     #00ff88;
+  --sig2:    #00e5ff;
+  --sig3:    #ffe44d;
+  --danger:  #ff3e5c;
+  --muted:   #8ab898;
+  --txt:     #e8f5ea;
+  --txt2:    #b8d4bc;
+  --border:  rgba(0,255,136,0.12);
+  --mono:    'Share Tech Mono', monospace;
+  --disp:    'Barlow Condensed', sans-serif;
+  --body:    'Barlow', sans-serif;
+}
+
+/* ── LIGHT MODE ── */
+.light {
+  --ink:     #f0f5f1;
+  --surface: #e4ede6;
+  --card:    #ffffff;
+  --sig:     #006633;
+  --sig2:    #005580;
+  --sig3:    #7a5c00;
+  --danger:  #cc1133;
+  --muted:   #2d5c3a;
+  --txt:     #0a1a0d;
+  --txt2:    #1a3d22;
+  --border:  rgba(0,100,50,0.18);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--body);
+  background: var(--ink);
+  color: var(--txt);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+  min-height: 100vh;
+  font-size: 15px;
+}
+
+/* CRT scanline — dark only */
+body:not(.light)::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 9999; pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,255,136,0.012) 2px, rgba(0,255,136,0.012) 4px
+  );
+}
+
+/* Grid background */
+.grid-bg {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 40px 40px;
+  opacity: 0.5;
+}
+
+/* ── Typography ── */
+.f-display { font-family: var(--disp); letter-spacing: 0.06em; text-transform: uppercase; }
+.f-mono    { font-family: var(--mono); }
+.f-body    { font-family: var(--body); }
+
+/* ── Gradient text ── */
+.g-text {
+  background: linear-gradient(90deg, var(--sig), var(--sig2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Signal button ── */
+.g-btn {
+  background: linear-gradient(90deg, var(--sig), var(--sig2));
+  color: #050c08 !important;
+  font-weight: 700;
+  font-family: var(--mono);
+  border: none;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  font-size: 11px;
+  transition: opacity 0.2s, box-shadow 0.2s;
+}
+.g-btn:hover { opacity: 0.88; box-shadow: 0 0 20px rgba(0,200,100,0.3); }
+
+/* ── Live dot ── */
+.live-dot {
+  display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--danger);
+  animation: blink 1.2s step-end infinite;
+}
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+@keyframes ping { 75%, 100% { transform: scale(1.5); opacity: 0; } }
+
+/* ── News card ── */
+.news-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.22,1,0.36,1);
+  position: relative;
+}
+.news-card:hover {
+  border-color: var(--sig);
+  transform: translateY(-5px);
+  box-shadow: 0 20px 48px rgba(0,0,0,0.3), 0 0 0 1px var(--border);
+}
+.news-card::before, .news-card::after {
+  content: ''; position: absolute;
+  width: 14px; height: 14px; opacity: 0;
+  transition: opacity 0.3s;
+}
+.news-card::before { top: 8px; left: 8px; border-top: 2px solid var(--sig); border-left: 2px solid var(--sig); }
+.news-card::after  { bottom: 8px; right: 8px; border-bottom: 2px solid var(--sig); border-right: 2px solid var(--sig); }
+.news-card:hover::before, .news-card:hover::after { opacity: 1; }
+
+/* ── Hero card ── */
+.hero-card {
+  position: relative; overflow: hidden; border-radius: 6px;
+  cursor: pointer; border: 1px solid var(--border);
+  transition: border-color 0.3s;
+}
+.hero-card:hover { border-color: var(--sig); }
+.hero-img {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(0.55) saturate(0.85);
+  transition: transform 0.7s ease, filter 0.3s;
+}
+.hero-card:hover .hero-img { transform: scale(1.04); filter: brightness(0.7) saturate(1); }
+.hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.3) 50%, transparent 100%);
+}
+
+/* ── Ticker ── */
+.ticker-track {
+  display: flex; white-space: nowrap;
+  animation: tickerRoll 50s linear infinite;
+}
+.ticker-track:hover { animation-play-state: paused; }
+@keyframes tickerRoll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+/* ── Skeleton ── */
+.skeleton {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--border) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.8s infinite;
+  border-radius: 4px;
+}
+@keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+
+/* ── Category pill ── */
+.cat-pill {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 12px 22px;
+  font-family: var(--disp);
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  cursor: pointer; white-space: nowrap;
+  border: none; background: none;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+.cat-pill:hover { color: var(--txt); }
+.cat-pill.active {
+  color: var(--sig);
+  border-bottom-color: var(--sig);
+}
+
+/* ── Glass ── */
+.glass {
+  background: rgba(10,18,13,0.88);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+.light .glass {
+  background: rgba(240,245,241,0.92);
+  backdrop-filter: blur(20px);
+}
+
+/* ── Video card ── */
+.video-card { transition: background 0.2s; cursor: pointer; }
+.video-card:hover { background: rgba(0,200,100,0.06); }
+
+/* ── Fade up ── */
+.fade-up { animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) both; }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── Reading progress ── */
+.read-progress {
+  position: fixed; top: 0; left: 0; height: 3px; z-index: 9998;
+  background: linear-gradient(90deg, var(--sig), var(--sig2), var(--sig3));
+  transition: width 0.1s linear; pointer-events: none;
+}
+
+/* ── Scrollbar ── */
+.thin-scroll::-webkit-scrollbar { width: 3px; }
+.thin-scroll::-webkit-scrollbar-track { background: transparent; }
+.thin-scroll::-webkit-scrollbar-thumb { background: var(--sig); border-radius: 99px; }
+.no-scroll::-webkit-scrollbar { display: none; }
+.no-scroll { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Text clamp ── */
+.c2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.c3 { display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+
+/* ── Stat pill ── */
+.stat-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 3px 10px; border-radius: 2px;
+  font-size: 11px; font-family: var(--mono);
+  background: rgba(0,200,100,0.08);
+  border: 1px solid var(--border);
+  color: var(--sig); letter-spacing: 0.08em;
+}
+
+/* ── Toast ── */
+.toast {
+  position: fixed; bottom: 28px; right: 28px; z-index: 9000;
+  padding: 12px 22px; border-radius: 4px;
+  font-family: var(--mono); font-size: 13px; font-weight: 600;
+  animation: toastSlide 0.3s cubic-bezier(0.22,1,0.36,1) both;
+  pointer-events: none;
+}
+@keyframes toastSlide { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── Reader modal ── */
+.reader-overlay {
+  position: fixed; inset: 0; z-index: 500;
+  background: rgba(0,0,0,0.8); backdrop-filter: blur(12px);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+.reader-box {
+  width: 100%; max-width: 720px; max-height: 90vh; overflow-y: auto;
+  border-radius: 8px; animation: slideUp 0.3s cubic-bezier(0.22,1,0.36,1);
+}
+@keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ── Responsive ── */
+@media (max-width: 768px) { .hide-mobile { display: none !important; } }
+@media (min-width: 769px) { .hide-desktop { display: none !important; } }

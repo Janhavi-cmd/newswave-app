@@ -1,0 +1,25 @@
+{
+  "name": "NewsWave - AI-Powered News Intelligence Hub",
+  "short_name": "NewsWave",
+  "description": "AI-powered global news platform with real-time aggregation, NLP sentiment analysis, and Gemini-powered article summarization",
+  "theme_color": "#10b981",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

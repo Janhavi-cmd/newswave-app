@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00e5a0"/>
+      <stop offset="50%" stop-color="#00cfff"/>
+      <stop offset="100%" stop-color="#f5c842"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.75"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#00e5a0" stop-opacity="0.4"/>
+      <stop offset="100%" stop-color="#00e5a0" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="blur"><feGaussianBlur stdDeviation="0.8"/></filter>
+  </defs>
+  <rect width="32" height="32" rx="8" ry="8" fill="url(#bg)"/>
+  <rect width="32" height="32" rx="8" ry="8" fill="#000" opacity="0.18"/>
+  <ellipse cx="16" cy="18" rx="12" ry="7" fill="url(#glow)" filter="url(#blur)"/>
+  <path d="M4 13 Q7 10,10 13 Q13 16,16 13 Q19 10,22 13 Q25 16,28 13" fill="none" stroke="url(#wave)" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M4 17.5 Q7 14.5,10 17.5 Q13 20.5,16 17.5 Q19 14.5,22 17.5 Q25 20.5,28 17.5" fill="none" stroke="url(#wave)" stroke-width="2.2" stroke-linecap="round" opacity="0.8"/>
+  <path d="M4 22 Q7 19,10 22 Q13 25,16 22 Q19 19,22 22 Q25 25,28 22" fill="none" stroke="url(#wave)" stroke-width="2.2" stroke-linecap="round" opacity="0.55"/>
+  <circle cx="7" cy="7" r="2.2" fill="#ffffff" opacity="0.95"/>
+  <circle cx="7" cy="7" r="4" fill="#ffffff" opacity="0.15"/>
+</svg>
